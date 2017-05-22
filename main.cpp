@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -35,6 +36,58 @@ int main()
         }
     }
     std::cout<<count<<std::endl;
+    return 0;
+}
+*/
+
+#include <iostream>
+#include <functional>
+#include <string>
+#include <map>
+
+using std::map;
+using std::string;
+using std::function;
+
+int main()
+{
+    map<string, function<int(int, int)>> binops = {
+        {"+", std::plus<int>()},
+        {"-", std::minus<int>()},
+        {"*", std::multiplies<int>()},
+        {"/", std::divides<int>()},
+        {"%", std::modulus<int>()}
+    };
+    int first,second,result;
+    string s;
+    std::cin>>first>>s>>second;
+    std::cout<<binops[s](first,second)<<"\n";
+   /*
+    switch (ch){
+    case '+':
+        result = binops["+"](first,second);
+        std::cout<<result<<"\n";
+        break;
+    case '-':
+        result = binops["-"](first,second);
+        std::cout<<result<<"\n";
+        break;
+    case '*':
+        result = binops["*"](first,second);
+        std::cout<<result<<"\n";
+        break;
+    case '/':
+        result = binops["/"](first,second);
+        std::cout<<result<<"\n";
+        break;
+    case '%':
+        result = binops["-"](first,second);
+        std::cout<<result<<"\n";
+        break;
+    default:
+        std::cout<<"error"<<"\n";
+    }
+    */
     return 0;
 }
 
