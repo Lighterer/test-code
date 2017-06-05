@@ -40,6 +40,7 @@ int main()
 }
 */
 
+/*
 #include <iostream>
 #include <functional>
 #include <string>
@@ -62,7 +63,7 @@ int main()
     string s;
     std::cin>>first>>s>>second;
     std::cout<<binops[s](first,second)<<"\n";
-   /*
+   // *
     switch (ch){
     case '+':
         result = binops["+"](first,second);
@@ -87,7 +88,48 @@ int main()
     default:
         std::cout<<"error"<<"\n";
     }
-    */
+    // *
     return 0;
 }
+*/
 
+#include <iostream>
+
+class A{
+public:
+    A()=default;
+    int print(){
+        std::cout<<"A::print"<<std::endl;
+        return a;
+    }
+private:
+    int a=0;
+    int b=0;
+};
+
+class B:protected A{
+public:
+    B()=default;
+    B(int m):c(m){}
+    int fun(B &s){
+       std::cout<<this->c<<std::endl;
+       //无论以什么方式继承的基类，派生类中的成员函数内都可以实现派生类到基类的类型转换
+       return s.A::print();
+    }
+    int print(){
+        std::cout<<"B::print"<<std::endl;
+        return c;
+    }
+private:
+    int c = 1;
+};
+
+int main()
+{
+    A a;
+    B b(3);
+    B b1;
+    //只有当public继承时，类外对象才能使用派生类到基类的类型转换
+    std::cout<<b.fun(b1)<<std::endl;
+    return 0;
+}
