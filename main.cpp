@@ -93,6 +93,7 @@ int main()
 }
 */
 
+/*
 #include <iostream>
 
 class A{
@@ -107,14 +108,15 @@ private:
     int b=0;
 };
 
-class B:protected A{
+class B:public A{
 public:
     B()=default;
     B(int m):c(m){}
     int fun(B &s){
        std::cout<<this->c<<std::endl;
        //无论以什么方式继承的基类，派生类中的成员函数内都可以实现派生类到基类的类型转换
-       return s.A::print();
+       A as = s;
+       return as.print();
     }
     int print(){
         std::cout<<"B::print"<<std::endl;
@@ -124,12 +126,45 @@ private:
     int c = 1;
 };
 
+void fun2(A &aa)
+{
+    std::cout<<"fun2----"<<aa.print()<<std::endl;
+}
+
 int main()
 {
     A a;
     B b(3);
     B b1;
     //只有当public继承时，类外对象才能使用派生类到基类的类型转换
+    fun2(b);
     std::cout<<b.fun(b1)<<std::endl;
+    return 0;
+}
+*/
+
+//实现一个find函数的模板
+#include <iostream>
+#include <vector>
+#include <iterator>
+
+using std::vector;
+using std::iterator;
+
+//I代表迭代器类型，T代表所传值的类型
+template <typename I,typename T> I find(I begin, I end, T value)
+{
+    for (;begin!=end;++begin){
+        if(*begin == value)
+            return begin;
+    }
+    return end;
+}
+
+int main()
+{
+    vector<int> v1={1,2,3,4,5,6,7};
+    //iterator iter = find(v1.begin(), v1.end(),5);
+    std::cout<<*find(v1.begin(), v1.end(),5)<<std::endl;
     return 0;
 }
